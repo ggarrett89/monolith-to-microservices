@@ -1,0 +1,3 @@
+[submodule "monolith-order-system"]
+	path = monolith-order-system
+	url = git@github.com:ggarrett89/monolith-order-system.git
