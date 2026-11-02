@@ -1,5 +1,14 @@
 # Phase 2 — Kubernetes Deployment
 
+> **Status: not validated.** This guide has never been executed end to end.
+> The lab is frozen since 2026-11-01 ([ADR-0001](adr/ADR-0001-freeze-preparatory-lab.md));
+> the guide is kept as a reference. Known gaps found during review:
+>
+> - A plain kubeadm cluster has no StorageClass, so the PostgreSQL PVC stays
+>   `Pending`. Step 7.0 below was added to fix this.
+> - The Traefik Helm values (`service.type`, `ports.web.nodePort`) were checked
+>   against the chart's `values.yaml` on 2026-11-01, but not executed.
+>
 > Complete [Phase 1](phase-01-modular-monolith.md) before starting this phase.
 
 ---
@@ -250,6 +259,27 @@ docker push ghcr.io/ggarrett89/monolith-order-system:0.2.0
 ---
 
 ## Step 7 — Create Kubernetes manifests
+
+### 7.0 Install a StorageClass (kubeadm has none by default)
+
+The PostgreSQL PVC does not set `storageClassName`, so it needs a default
+StorageClass. Install Rancher's local-path-provisioner (latest release on
+2026-11-01: v0.0.37) and mark it as default:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.37/deploy/local-path-storage.yaml
+
+kubectl patch storageclass local-path \
+  -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+kubectl get storageclass
+# local-path (default)   rancher.io/local-path   ...
+```
+
+`local-path` stores data on the node's disk. If the PostgreSQL pod moves to
+another node, it does not take the data with it. That is acceptable for a lab.
+
+### 7.1 Apply the manifests
 
 Apply the manifests from `monolith-order-system/k8s/`:
 

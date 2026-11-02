@@ -1,6 +1,9 @@
 # Phase 9 — AWS EKS
 
-> **Status:** 📋 Planned
+> **Status:** 📋 Historical plan — not implemented. **Optional track**, not part of
+> completing the journey: cloud adoption is optional and requires an approved cost estimate
+> before provisioning. The lab is frozen since 2026-11-01
+> ([ADR-0001](adr/ADR-0001-freeze-preparatory-lab.md)). Kept for reference only.
 >
 > Complete [Phase 8](phase-08-gitops-argocd.md) before starting this phase.
 

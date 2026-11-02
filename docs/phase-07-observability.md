@@ -1,6 +1,8 @@
 # Phase 7 — Observability
 
-> **Status:** 📋 Planned
+> **Status:** 📋 Historical plan — not implemented.
+> The lab is frozen since 2026-11-01 and the journey continues in the CRM-ERP project
+> ([ADR-0001](adr/ADR-0001-freeze-preparatory-lab.md)). Kept for reference only.
 >
 > Complete [Phase 6](phase-06-saga.md) before starting this phase.
 
